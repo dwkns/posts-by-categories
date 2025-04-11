@@ -1,0 +1,57 @@
+---
+layout: _page_skeleton.njk
+pagination:
+  data: collections.postsByCategories
+  size: 1
+  alias: postsCategories
+permalink: /{{ postsCategories.slug }}/
+---
+<h1>{{ postsCategories.categoryName }} posts page {{postsCategories.currentPage}} of {{postsCategories.totalPages}}</h1>
+<p ><a href="/" >← Home</a></p>
+<ul>
+  {%- for post in postsCategories.posts -%}
+  <li>
+    <a href="{{ post.url }}" >{{ post.data.title }}</a> in {{ post.data.category }} 
+  </li>
+  {%- endfor -%}
+</ul>
+
+{%- if postsCategories.totalPages > 1 -%}
+
+
+  {%- if postsCategories.isFirstPage -%}
+  <p>Previous</p>
+  {%- else -%} 
+  {%- set slug = postsCategories.pageSlugs.previous -%}
+  <a href="{{ slug if slug !='/' else '' }}">
+    <p>Previous</p>
+  </a>
+  {%- endif -%}
+
+  <ul>
+    {%- for pageEntry in postsCategories.pageSlugs.all -%} {%- if
+    postsCategories.currentPage == loop.index -%}
+    <li>
+      {{ loop.index }}
+    </li>
+    {%- else -%}
+    <li>
+      {%- set slug = postsCategories.pageSlugs.all[loop.index - 1] -%}
+      <a
+        href="{{ slug if slug !='/' else '' }}"
+        >{{ loop.index }}</a
+      >
+    </li>
+    {%- endif -%} {%- endfor -%}
+  </ul>
+
+  {%- if postsCategories.isLastPage -%}
+  <p >Next</p>
+  {%- else -%} {%- set slug = postsCategories.pageSlugs.next -%}
+  <a href="{{ baseURL }}{{ slug if slug !='/' else '' }}">
+    <p >Next</p>
+  </a>
+  {%- endif -%}
+</div>
+
+{%- endif -%}

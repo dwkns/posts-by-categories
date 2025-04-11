@@ -5,16 +5,17 @@
   "license": "MIT",
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
-    "@dwkns/the-ultimate-question": "^0.0.1",
-    "eleventy-plugin-tailwindcss-4": "^1.1.2",
+    "@tailwindcss/typography": "^0.5.16",
     "eleventy-plugin-console-plus": "^0.1.1",
+    "eleventy-plugin-tailwindcss-4": "^1.1.2",
+    "lodash-es": "^4.17.21",
     "rimraf": "^6.0.1",
     "tailwindcss": "^4.0.14"
   },
   "type": "module",
   "scripts": {
     "clean": "npx rimraf dist build",
-    "dev": "npm run clean && eleventy --serve",
+    "dev": "npm run clean && eleventy --serve --quiet",
     "build": "npm run clean && eleventy"
   },
   "author": "dwkns"

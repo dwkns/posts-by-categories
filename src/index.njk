@@ -2,9 +2,27 @@
 layout: _page_skeleton.njk
 title: "Homepage"
 ---
-{%- from "_njk/components.njk" import component -%} 
+<h1>{{title}}</h1>
 
-{% console site.name, "site.name from _data/site.js" %}
+{# All entries in the collection have the same categoryData so grabbing the first one. #}
+{%- set categoryData = collections.postsByCategories[0].categoryData -%}
 
-{{ component("page-header", {title: site.name, styles: "text-4xl"}) }}
-<p class="text-xl text-amber-400">Just some content here</p>
+<h2>Paginated posts by Category</h2>
+<ul>
+  {%- for name, category in categoryData -%}
+  <li class="underline" >
+    <a href="{{ category.slug }}" class="">{{ category.name }} ({{category.numberOfPosts}} posts)</a>
+  </li>
+  {%- endfor -%}
+</ul>
+
+<h2>All the posts</h2>
+<ul>
+  {%- for post in collections.posts -%}
+  <li>
+    {% set thisCategory = categoryData[post.data.category].name %}
+    {% set thisCategorySlug = categoryData[post.data.category].slug %}
+    <a href="{{ post.url }}" class="">{{ post.data.title }}</a> in <a href="{{thisCategorySlug}}" class="">{{thisCategory}}</a>
+  </li>
+  {%- endfor -%}
+</ul>
