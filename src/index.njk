@@ -1,0 +1,10 @@
+---
+layout: _page_skeleton.njk
+title: "Homepage"
+---
+{%- from "_njk/components.njk" import component -%} 
+
+{% console site.name, "site.name from _data/site.js" %}
+
+{{ component("page-header", {title: site.name, styles: "text-4xl"}) }}
+<p class="text-xl text-amber-400">Just some content here</p>

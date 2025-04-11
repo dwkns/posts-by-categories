@@ -1,0 +1,21 @@
+{
+  "name": "posts-by-categories",
+  "version": "0.0.2",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@dwkns/the-ultimate-question": "^0.0.1",
+    "eleventy-plugin-tailwindcss-4": "^1.1.2",
+    "eleventy-plugin-console-plus": "^0.1.1",
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^4.0.14"
+  },
+  "type": "module",
+  "scripts": {
+    "clean": "npx rimraf dist build",
+    "dev": "npm run clean && eleventy --serve",
+    "build": "npm run clean && eleventy"
+  },
+  "author": "dwkns"
+}

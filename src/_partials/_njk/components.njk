@@ -1,0 +1,5 @@
+{# Automatically create a macro for each component in '_components'.
+The Include will inherit the params passed here #}
+{%- macro component(name, params) -%}
+  {% include "../_njk/" + name + "/" + name + ".njk"  %}
+{%- endmacro -%}
