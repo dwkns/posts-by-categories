@@ -1,65 +1,23 @@
 import logToConsole from 'eleventy-plugin-console-plus'
 import tailwindcss from 'eleventy-plugin-tailwindcss-4'
 import slugify from "slugify";
-import util from "util";
-import { chunk, clone } from "lodash-es";
-
-import { DateTime } from "luxon";
-
+import { chunk } from "lodash-es";
 
 export default (eleventyConfig) => {
-  // eleventyConfig.addShortcode("getKeys", (value) => {
-
-  //   if (!value || typeof value !== 'object') {
-  //     let str = `Not an object or level is 0, probably supplied a ${typeof value}`;
-  //     console.log(str);
-  //     return str;
-  //   }
-
-  //   if (value instanceof Array) {
-  //     let str = `Supplied an array`;
-  //     console.log(str);
-  //     return str;
-  //   }
-
-
-
-
-  //   let processedObj = {};
-  //   // let keys = Object.keys(value);
-  //   // keys.forEach((key) => {
-  //   //   if (typeof value[key] === 'string') {
-  //   //     // processedObj[key] = "string";
-  //   //   }
-  //   // })
-
-  //   for (const key in value) {
-  //     console.log("key: ", key)
-  //     if (key != "templateContent" && key != "content") {
-  //       if (typeof value[key] === 'string') {
-  //         processedObj[key] = "string";
-  //       } else if (typeof value[key] === 'object') {
-  //         processedObj[key] = "object";
-  //       }
-  //     }
-     
-  //   }
-  //   processedObj["templateContent"] = "Excluded as displaying causes TemplateContentPrematureUseError";
-  //   processedObj["content"] = "Excluded as displaying causes TemplateContentPrematureUseError";;
-  //   console.log(processedObj)
-  //   return processedObj;
-  // })
-
-
+  // Add TailwindCSS plugin
   eleventyConfig.addPlugin(tailwindcss, {
     input: 'css/tailwind.css'
   });
+
+  // Add console plus plugin
   eleventyConfig.addPlugin(logToConsole, { depth: 2 });
 
+  // Collection to easily access all posts
   eleventyConfig.addCollection("posts", (collectionAPI) => {
     return collectionAPI.getFilteredByGlob("./src/posts/**/*.md");
   })
 
+  // A collection of the posts by each category with pagination.
   eleventyConfig.addCollection("postsByCategories", (collectionAPI) => {
     let numberOfresultsPerPage = 2; // number of results per page
     let slugPrefix = "/posts"; // Optional: the prefix for the slug could be /articles or /blog etc
@@ -85,12 +43,12 @@ export default (eleventyConfig) => {
     // console.log(uniqueCategories)
 
 
-
     // Loop through each unique category 
     uniqueCategories.forEach((categoryName) => {
       let allPostinCurrentCategory = [];
 
-      // loop through all the posts and if the post category matches the current category
+      // loop through all the posts.
+      // If the current post category matches the current category
       // then add it to the allPostinCurrentCategory array.
       posts.forEach((post) => {
         if (post.data.category == categoryName) {
@@ -99,6 +57,7 @@ export default (eleventyConfig) => {
       });
 
       // chunk up all the posts in this category by the number of results/page we want.
+      // We need to do this so we can create pagination.
       // chunk() is from lodash-es imported above
       let chunks = chunk(allPostinCurrentCategory, numberOfresultsPerPage);
 
@@ -146,8 +105,6 @@ export default (eleventyConfig) => {
 
 
     //  console.log(`[ pageDataForAllCategories ]:`, pageDataForAllCategories);
-
-
 
     // Create a single flattened aray of all the posts and pagination data.
     // This allows us to use pagination in our templates.
