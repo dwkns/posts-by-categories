@@ -34,13 +34,25 @@ export default (eleventyConfig) => {
     let uniqueCategories = new Set()
 
     // Loop through each post and add its category to the Set.
+    // Deals with a string or an array of strings.
     posts.forEach(post => {
-      post.data?.category ? uniqueCategories.add(post.data.category) : null
+      if (post.data?.category) { 
+        if ( Array.isArray(post.data.category)) {
+          // Category is an array
+          // loop the array and extract categories
+          post.data.category.forEach(element => {
+            uniqueCategories.add(element)
+          });
+        } else {
+          // Assume it is a string
+          uniqueCategories.add(post.data.category) 
+        }
+      }
     })
 
     // we now have a set of uniquie categories
     // console.log(`There are ${posts.length} posts in ${uniqueCategories.size} unique categories`)
-    // console.log(uniqueCategories)
+     console.log(uniqueCategories)
 
 
     // Loop through each unique category 
@@ -51,8 +63,17 @@ export default (eleventyConfig) => {
       // If the current post category matches the current category
       // then add it to the allPostinCurrentCategory array.
       posts.forEach((post) => {
-        if (post.data.category == categoryName) {
-          allPostinCurrentCategory.push(post);
+
+        if ( Array.isArray(post.data.category)) {
+          // Category is an array
+          if (post.data.category.includes(categoryName)) {
+            allPostinCurrentCategory.push(post);
+          }
+        } else {
+          // Category is a string 
+          if (post.data.category == categoryName) {
+            allPostinCurrentCategory.push(post);
+          }
         }
       });
 
