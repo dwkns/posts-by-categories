@@ -6,9 +6,9 @@ title: "Homepage"
 
 {# All entries in the collection have the same categoryData so grabbing the first one. #}
 {%- set categoryData = collections.postsByCategories[0].categoryData -%}
-{# {% console categoryData, "categoryData" %} #}
 
 <h2>Paginated posts by Category</h2>
+{% console categoryData, "categoryData" %}
 <ul>
   {%- for name, category in categoryData -%}
   <li class="underline" >
@@ -18,6 +18,7 @@ title: "Homepage"
 </ul>
 
 <h2>All the posts</h2>
+{% console collections.posts, "collections.posts" %}
 <ul>
   {%- for post in collections.posts -%}
   <li>

@@ -1,4 +1,4 @@
-import logToConsole from 'eleventy-plugin-console-plus'
+import { consolePlus } from 'eleventy-plugin-console-plus'
 import tailwindcss from 'eleventy-plugin-tailwindcss-4'
 import slugify from "slugify";
 import { chunk } from "lodash-es";
@@ -10,7 +10,7 @@ export default (eleventyConfig) => {
   });
 
   // Add console plus plugin
-  eleventyConfig.addPlugin(logToConsole, { depth: 2 });
+  eleventyConfig.addPlugin(consolePlus, {  });
 
   // Collection to easily access all posts
   eleventyConfig.addCollection("posts", (collectionAPI) => {
