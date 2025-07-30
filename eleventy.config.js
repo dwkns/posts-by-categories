@@ -9,8 +9,10 @@ export default (eleventyConfig) => {
     input: 'css/tailwind.css'
   });
 
-  // Add console plus plugin
-  eleventyConfig.addPlugin(consolePlus, {  });
+  // Add console plus plugin 
+  eleventyConfig.addPlugin(consolePlus, { 
+    logToTerminal: false, // log to console
+   });
 
   // Collection to easily access all posts
   eleventyConfig.addCollection("posts", (collectionAPI) => {
@@ -52,7 +54,7 @@ export default (eleventyConfig) => {
 
     // we now have a set of uniquie categories
     // console.log(`There are ${posts.length} posts in ${uniqueCategories.size} unique categories`)
-     console.log(uniqueCategories)
+      // console.log(uniqueCategories)
 
 
     // Loop through each unique category 

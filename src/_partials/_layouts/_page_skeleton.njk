@@ -10,14 +10,16 @@
   </head>
   <body class="container mx-auto p-8 " >
     <nav>
+      <p class="flex my-4">See code on: <a href="https://github.com/dwkns/posts-by-categories"  class="ml-2 cursor-pointer" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt=""></a></p>
       {%- set categoryData = collections.postsByCategories[0].categoryData -%}
-      <ul class="flex flex-row gap-4 " >
+      <ul class="flex flex-row gap-4  w-full" >
         <li class="underline hover:text-gray-400" ><a href="/">Home</a></li>
         {%- for name, category in categoryData -%}
         <li class="underline hover:text-gray-400" >
           <a href="{{ category.slug }}" class="">{{ category.name }} ({{category.numberOfPosts}} posts)</a>
         </li>
         {%- endfor -%}
+        
       </ul>
     </nav>
     <main class="prose" >
